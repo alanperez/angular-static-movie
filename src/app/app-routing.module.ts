@@ -20,12 +20,12 @@ const routes: Routes = [
     path: 'movies/:title/schedule',
     component: ScheduleComponent
   },
+  // {
+  //   path: 'movies/:title/schedule/checkout/thank-you',
+  //   component: CheckoutComponent
+  // },
   {
-    path: 'movies/:title/schedule/checkout',
-    component: CheckoutComponent
-  },
-  {
-    path: 'movies/:title/schedule/thank-you',
+    path: 'movies/:title/schedule/checkout/thank-you',
     component: ThankYouComponent
   }
 

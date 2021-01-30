@@ -7,7 +7,7 @@
     <div class="schedule-content">
       <div class="row">
         <div class="col-md-12">
-          <h1>Movie Title</h1>
+          <h1>{{ movieData.title }}</h1>
         </div>
         <div class="col-md-12 col-lg-6">
           <section id="hours-section">
@@ -71,13 +71,11 @@
                         type="text"
                         default
                         value="1"
-                        [(ngModel)]="adultTickets"
+                        [(ngModel)]="adultTicket"
                       />
                     </div>
-                    <div class="clm">
-                      {{ adultTickets }} x ${{ adultPrice }}
-                    </div>
-                    <div class="clm">= ${{ adultTickets * adultPrice }}</div>
+                    <div class="clm">{{ adultTicket }} x ${{ adultPrice }}</div>
+                    <div class="clm">= ${{ adultTicket * adultPrice }}</div>
 
                     <div class="ticket-selection">
                       <div class="clm">Child</div>
@@ -85,13 +83,13 @@
                         <input
                           type="text"
                           value="0"
-                          [(ngModel)]="childTickets"
+                          [(ngModel)]="childTicket"
                         />
                       </div>
                       <div class="clm">
-                        {{ childTickets }} x ${{ childPrice }}
+                        {{ childTicket }} x ${{ childPrice }}
                       </div>
-                      <div class="clm">= {{ childTickets * childPrice }}</div>
+                      <div class="clm">= {{ childTicket * childPrice }}</div>
                     </div>
 
                     <div class="ticket-selection">
@@ -100,15 +98,13 @@
                         <input
                           type="text"
                           value="0"
-                          [(ngModel)]="seniorTickets"
+                          [(ngModel)]="seniorTicket"
                         />
                       </div>
                       <div class="clm">
-                        {{ seniorTickets }} x$ {{ seniorPrice }}5
+                        {{ seniorTicket }} x$ {{ seniorPrice }}5
                       </div>
-                      <div class="clm">
-                        = ${{ seniorTickets * seniorPrice }}
-                      </div>
+                      <div class="clm">= ${{ seniorTicket * seniorPrice }}</div>
                     </div>
                   </div>
                 </div>
@@ -127,11 +123,12 @@
                     <div
                       class="chair"
                       [ngClass]="{
-                        reserved: chair === 'reserved'
+                        reserved: chair === 'reserved',
+                        selected: chair === 'selected'
                       }"
                       (click)="clickedChair(movieData.slug, i)"
                     >
-                      {{ i }}
+                      <!-- {{ i }} -->
                     </div>
                   </ng-container>
                 </div>
@@ -154,7 +151,9 @@
               </div>
             </div>
             <div class="continue">
-              <div class="continue-btn">continue</div>
+              <div class="continue-btn" (click)="clickedContinue()">
+                continue
+              </div>
             </div>
           </section>
         </div>

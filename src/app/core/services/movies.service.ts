@@ -58,7 +58,7 @@ export class MoviesService {
         'reserved',
         'available',
         'available'
-      ]
+      ],
       
     },
     {
@@ -66,7 +66,54 @@ export class MoviesService {
       slug: 'wonder-woman-1984',
       imageUrl: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/wonder-woman-1984-poster-1606931235.jpg?resize=480:*',
       releaseDate: 'December 25, 2020',
-      syn: "Diana Prince lives quietly among mortals in the vibrant, sleek 1980s -- an era of excess driven by the pursuit of having it all. Though she's come into her full powers, she maintains a low profile by curating ancient artifacts, and only performing heroic acts incognito. But soon, Diana will have to muster all of her strength, wisdom and courage as she finds herself squaring off against Maxwell Lord and the Cheetah, a villainess who possesses superhuman strength and agility."
+      syn: "Diana Prince lives quietly among mortals in the vibrant, sleek 1980s -- an era of excess driven by the pursuit of having it all. Though she's come into her full powers, she maintains a low profile by curating ancient artifacts, and only performing heroic acts incognito. But soon, Diana will have to muster all of her strength, wisdom and courage as she finds herself squaring off against Maxwell Lord and the Cheetah, a villainess who possesses superhuman strength and agility.",
+      chairs: [
+        'available',
+        'available',
+        'available',
+        'reserved',
+        'reserved',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'reserved',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'reserved',
+        'reserved',
+        'reserved',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'reserved',
+        'reserved',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'reserved',
+        'available',
+        'available'
+      ],
       
     },
     {
@@ -74,7 +121,54 @@ export class MoviesService {
       slug: 'tom-and-jerry',
       imageUrl: 'https://m.media-amazon.com/images/M/MV5BYzE3ODhiNzAtOWY4MS00NTdiLThmNDctNDM4NjRiNGFmYjI1XkEyXkFqcGdeQXVyMTI2ODM1ODUw._V1_.jpg',
       releaseDate: 'February 26, 2021',
-      syn: "Adaptation of the classic Hanna-Barbera property, which reveals how Tom and Jerry first meet and form their rivalry. "
+      syn: "Adaptation of the classic Hanna-Barbera property, which reveals how Tom and Jerry first meet and form their rivalry. ",
+      chairs: [
+        'available',
+        'available',
+        'available',
+        'reserved',
+        'reserved',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'reserved',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'reserved',
+        'reserved',
+        'reserved',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'reserved',
+        'reserved',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'reserved',
+        'available',
+        'available'
+      ],
       
     },
     {
@@ -82,7 +176,54 @@ export class MoviesService {
       slug: 'back-to-the-futre',
       imageUrl: 'https://images-na.ssl-images-amazon.com/images/I/71pwYomGC1L._AC_SL1418_.jpg',
       releaseDate: 'July 3, 1985',
-      syn: "In this 1980s sci-fi classic, small-town California teen Marty McFly (Michael J. Fox) is thrown back into the '50s when an experiment by his eccentric scientist friend Doc Brown (Christopher Lloyd) goes awry. Traveling through time in a modified DeLorean car, Marty encounters young versions of his parents (Crispin Glover, Lea Thompson), and must make sure that they fall in love or he'll cease to exist. Even more dauntingly, Marty has to return to his own time and save the life of Doc Brown."
+      syn: "In this 1980s sci-fi classic, small-town California teen Marty McFly (Michael J. Fox) is thrown back into the '50s when an experiment by his eccentric scientist friend Doc Brown (Christopher Lloyd) goes awry. Traveling through time in a modified DeLorean car, Marty encounters young versions of his parents (Crispin Glover, Lea Thompson), and must make sure that they fall in love or he'll cease to exist. Even more dauntingly, Marty has to return to his own time and save the life of Doc Brown.",
+      chairs: [
+        'available',
+        'available',
+        'available',
+        'reserved',
+        'reserved',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'reserved',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'reserved',
+        'reserved',
+        'reserved',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'reserved',
+        'reserved',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'available',
+        'reserved',
+        'available',
+        'available',
+      ],
       
     }
   ];
@@ -100,8 +241,36 @@ export class MoviesService {
       return movie.slug === slug
     })
   }
-reserveChair(slug, index) {
-  console.log(`${slug}: ${index}`)
-} 
+reserveChair(slug, index, totalTickets) {
+  const movieId = this.moviesData.findIndex(movie => 
+    {
+      return movie.slug === slug;
+  });
+// find the movie and filter out chars that arent selected
+  let totalSelected = this.moviesData[movieId].chairs?.filter(
+    x => x === 'selected'
+  ).length;
+
+  if(totalSelected < totalTickets) {
+    if(this.moviesData[movieId].chairs[index] == 'reserved') {
+      alert('Seat is reserved')
+    } else {
+  
+      this.moviesData[movieId].chairs[index] = this.moviesData[movieId].chairs[index] === 'available'
+      ? 'selected'
+      : 'available';
+      totalSelected = this.moviesData[movieId].chairs.filter(
+        x => x === 'selected'
+      ).length;
+      
+    }
+  } else {
+    alert(`You have ${totalSelected} tickets you can't reserve anymore seats. Order more tickets`)
+  }
+
+
+  console.log(this.moviesData)
+  console.log(movieId)
+  } 
 
 }

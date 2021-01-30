@@ -1,6 +1,6 @@
 import { MoviesService } from './../../core/services/movies.service';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-schedule',
@@ -19,7 +19,9 @@ export class ScheduleComponent implements OnInit {
   seniorTicket = 0;
   seniorPrice= 11.25
   time = '3:00PM'
-  constructor(private route: ActivatedRoute, private service: MoviesService) {
+
+  
+  constructor(private route: ActivatedRoute, private service: MoviesService, private router: Router) {
 
     this.route.paramMap.subscribe(params => {
       this.movieData = service.getMovieData(params.get('title'))[0]
@@ -35,7 +37,23 @@ export class ScheduleComponent implements OnInit {
     console.log(time)
   }
   clickedChair(slug, index) {
-    this.service.reserveChair(slug, index)
+    let totalTickets =
+    (this.adultTicket) +
+    (this.seniorTicket) +
+    (this.childTicket);
+    this.service.reserveChair(slug, index, totalTickets)
     console.log('clicked chair')
+  }
+
+  clickedContinue() {
+    console.log(this.movieData)
+    this.router.navigate(['movies', this.movieData.slug, 'schedule', 'checkout', 'thank-you'], {
+      queryParams: {
+        adultTicket: this.adultTicket,
+        childTicket: this.childTicket,
+        seniorTicket: this.seniorTicket,
+        time: this.time
+      }
+    });
   }
 }
